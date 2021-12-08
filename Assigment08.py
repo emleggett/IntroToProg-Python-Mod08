@@ -95,6 +95,12 @@ class FileProcessor:
 
     @staticmethod
     def read_data(file_name, list_of_rows):
+        """ Reads/organizes list data (product, price) from indicated file
+
+        :param file_name: (string) name of file holding data:
+        :param list_of_rows: (list) being read from file:
+        :return: uploaded (list) of dictionary rows
+        """
         file = open(file_name, "r")
         for line in file:
             product_name, product_price = line.split(",")
@@ -118,6 +124,12 @@ class FileProcessor:
 
     @staticmethod
     def save_data(file_name, list_of_rows):
+        """ Writes list data (product, price) to indicated file
+
+        :param file_name: (string) name of file holding data:
+        :param list_of_rows: (list) being saved to file:
+        :return: revised (list) of dictionary rows being saved
+        """
         file = open(file_name, "w")
         for row in list_of_rows:
             file.write(row["Product"] + ", " + row["Price"] + "\n")
@@ -128,11 +140,12 @@ class FileProcessor:
 # Presentation (Input/Output)  ------------------------------------------- #
 
 class IO:
-    """Collects information to process:
+    """Collects inputs from user and displays interfaces/options:
 
     methods:
         output_menu():
         menu_choice():
+        print_list(list_of_rows): -> (a list of product objects)
         input_product():
     changelog:
             RRoot,1.1.2020,Created Class
@@ -141,7 +154,7 @@ class IO:
 
     @staticmethod
     def output_menu():
-        """Displays a menu of options to the user
+        """Displays a list of menu of options to the user
         """
         print("""
         MENU OF OPTIONS:\n
@@ -153,9 +166,9 @@ class IO:
 
     @staticmethod
     def menu_choice():
-        """Saves user's menu choice for processing
+        """Collects user's menu choice for processing
 
-        :return: user's menu choice
+        :return: menu choice
         """
         choice = input("Select a menu option [1 to 3]: ")
         return choice
@@ -164,6 +177,7 @@ class IO:
     def print_list(list_of_rows):
         """Displays user's list of data for viewing
 
+        :param list_of_rows: (list) being populated with data:
         :return: current list of data
         """
         print("\nCURRENT LIST OF ITEMS:\n** PRODUCT | PRICE **\n")
@@ -173,7 +187,7 @@ class IO:
 
     @staticmethod
     def input_product():
-        """Saves user's product and price data for processing
+        """Collects user's product and price data for processing
 
         :return: product and price to add to list
         """
@@ -187,7 +201,6 @@ class IO:
 FileProcessor.read_data(strFileName, lstOfProductObjects)
 
 while (True):
-    IO.print_list(lstOfProductObjects)
     IO.output_menu()
     menu_choice = IO.menu_choice()
 
